@@ -7,25 +7,22 @@ namespace docker_backups
     {
         public readonly string Project;
         public readonly string Role;
-        public readonly string Version;
 
         public bool IsValid() => !string.IsNullOrEmpty(Project) &&
-                               !string.IsNullOrEmpty(Role) &&
-                               !string.IsNullOrEmpty(Version);
+                                 !string.IsNullOrEmpty(Role);
 
-        private ContainerBackupFields(string project, string role, string version)
+        private ContainerBackupFields(string project, string role)
         {
             Project = project;
             Role = role;
-            Version = version;
         }
 
         public static ContainerBackupFields Create(ContainerListResponse container)
         {
             return new ContainerBackupFields(
                 project: container.Labels.FirstOrDefault(x => x.Key.ToLower() == "project").Value,
-                role: container.Labels.FirstOrDefault(x => x.Key.ToLower() == "role").Value,
-                version: container.Labels.FirstOrDefault(x => x.Key.ToLower() == "version").Value);
+                role: container.Labels.FirstOrDefault(x => x.Key.ToLower() == "role").Value
+            );
         }
 
     }

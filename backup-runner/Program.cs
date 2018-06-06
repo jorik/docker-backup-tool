@@ -103,6 +103,8 @@ namespace docker_backups
 
         private static async Task<Task> BackupMount(MountPoint mount, DockerClient client, ContainerBackupFields fields)
         {
+            var cleanContainerPath = mount.Destination.Replace("/", "_");
+                
             var backupContainer = await client.Containers.CreateContainerAsync(new CreateContainerParameters
             {
                 Image = "jorik/docker-mount-backup-tool",
@@ -110,7 +112,7 @@ namespace docker_backups
                 {
                     $"BACKUP_PROJECT={fields.Project}",
                     $"BACKUP_ROLE={fields.Role}",
-                    $"BACKUP_VERSION={fields.Version}",
+                    $"BACKUP_CONTAINER_PATH={cleanContainerPath}",
                     $"AWS_SECRET_ACCESS_KEY={_appSettings.AWSSecretAccessKey}",
                     $"AWS_ACCESS_KEY_ID={_appSettings.AWSAccessKeyId}"
                 },

@@ -3,13 +3,13 @@ set -e
 
 project=$1
 role=$2
-version=$3
+container_path=$3
 aws_secret_access_key=$4
 aws_access_key_id=$5
 datadir=$6
 
 date=`date +%Y-%m-%d`
-tarfile="$project.$role.$version.$date.tar.gz"
+tarfile="$project.$role.$container_path.$date.tar.gz"
 
 echo "Starting backup of $datadir to file: $tarfile"
 
