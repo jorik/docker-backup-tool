@@ -8,4 +8,6 @@
 
 Simple docker image that expects a folder mounted at `/data` and a bunch of environment variables. The container will create an tar.gz archive from the `/data` directroy, and upload it to the (now hardcoded) s3 bucket. 
 
+# aws-cli
 
+Simple docker-image that includes the aws-cli
